@@ -1,0 +1,3337 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MinePass LATAM | Presentación corporativa</title>
+  <style>
+    :root {
+      --bg: #071013;
+      --bg-2: #0d1a1e;
+      --panel: rgba(14, 28, 31, 0.78);
+      --panel-strong: rgba(18, 35, 39, 0.94);
+      --line: rgba(186, 219, 214, 0.18);
+      --text: #ecf4ef;
+      --muted: #9fb5ad;
+      --soft: #c7d8d2;
+      --copper: #c9783f;
+      --gold: #d6a64e;
+      --green: #39c68b;
+      --blue: #56a8f2;
+      --danger: #ef6f5d;
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.36);
+      --radius: 8px;
+      --slide-w: 1600px;
+      --slide-h: 900px;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(201, 120, 63, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(86, 168, 242, 0.16), transparent 30%),
+        linear-gradient(135deg, #05090b 0%, var(--bg) 45%, #102119 100%);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .deck-shell {
+      width: 100vw;
+      height: 100vh;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deck-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.34;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 80%, transparent);
+    }
+
+    .deck {
+      width: var(--slide-w);
+      height: var(--slide-h);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(var(--deck-scale, 1));
+      transform-origin: center center;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid rgba(216, 233, 226, 0.16);
+      border-radius: 8px;
+      background: #091113;
+      box-shadow: var(--shadow);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 58px 68px 42px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(2.5%);
+      transition:
+        opacity 280ms ease,
+        transform 280ms ease,
+        visibility 280ms ease;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(135deg, rgba(5, 11, 12, 0.42), rgba(6, 17, 18, 0.96)),
+        var(--slide-bg, linear-gradient(135deg, #081316, #132a29));
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.46;
+      background:
+        linear-gradient(90deg, transparent 0 72%, rgba(255, 255, 255, 0.05) 72% 72.2%, transparent 72.2%),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 44px 44px, 44px 44px;
+      mask-image: radial-gradient(circle at 78% 48%, #000, transparent 62%);
+      pointer-events: none;
+    }
+
+    .industrial-texture {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.34;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.045) 0,
+          rgba(255, 255, 255, 0.045) 1px,
+          transparent 1px,
+          transparent 18px
+        );
+      mask-image: linear-gradient(95deg, transparent 0%, #000 58%, #000 100%);
+    }
+
+    .topbar,
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      letter-spacing: 0;
+      font-size: 15px;
+      color: var(--soft);
+      text-transform: uppercase;
+      font-weight: 780;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(57, 198, 139, 0.98), rgba(86, 168, 242, 0.9)),
+        #15352f;
+      color: #051012;
+      box-shadow: 0 12px 34px rgba(57, 198, 139, 0.23);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px 10px;
+      border: 2px solid rgba(4, 15, 17, 0.76);
+      border-top-color: transparent;
+      transform: rotate(-38deg);
+    }
+
+    .eyebrow,
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 32px;
+      padding: 7px 11px;
+      border: 1px solid rgba(215, 230, 224, 0.15);
+      background: rgba(8, 19, 21, 0.54);
+      color: var(--soft);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .eyebrow::before,
+    .section-tag::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 20px rgba(57, 198, 139, 0.75);
+      flex: 0 0 auto;
+    }
+
+    .section-tag.copper::before {
+      background: var(--copper);
+      box-shadow: 0 0 20px rgba(201, 120, 63, 0.75);
+    }
+
+    .section-tag.blue::before {
+      background: var(--blue);
+      box-shadow: 0 0 20px rgba(86, 168, 242, 0.75);
+    }
+
+    .slide-number {
+      color: rgba(236, 244, 239, 0.72);
+      font-size: 13px;
+      font-weight: 720;
+      text-transform: uppercase;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 0;
+      display: grid;
+      align-items: center;
+      gap: 28px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 930px;
+      font-size: 96px;
+      line-height: 0.95;
+      letter-spacing: 0;
+      font-weight: 850;
+    }
+
+    h2 {
+      max-width: 980px;
+      font-size: 60px;
+      line-height: 1.01;
+      letter-spacing: 0;
+      font-weight: 835;
+    }
+
+    h3 {
+      font-size: 23px;
+      line-height: 1.16;
+      letter-spacing: 0;
+      font-weight: 790;
+    }
+
+    .lead {
+      max-width: 780px;
+      color: var(--soft);
+      font-size: 23px;
+      line-height: 1.35;
+      font-weight: 480;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .accent {
+      color: var(--green);
+    }
+
+    .accent-copper {
+      color: var(--copper);
+    }
+
+    .accent-blue {
+      color: var(--blue);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .tight-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
+        var(--panel);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.21);
+      backdrop-filter: blur(18px);
+    }
+
+    .card-pad {
+      padding: 22px;
+    }
+
+    .metric {
+      display: grid;
+      gap: 7px;
+      padding: 20px;
+      min-height: 138px;
+    }
+
+    .metric strong {
+      color: var(--text);
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .large-metric strong {
+      font-size: 54px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(219, 235, 230, 0.13);
+      color: var(--soft);
+      background: rgba(6, 17, 19, 0.54);
+      font-size: 14px;
+      font-weight: 680;
+      white-space: nowrap;
+    }
+
+    .pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.82;
+      flex: 0 0 auto;
+    }
+
+    .caption {
+      color: rgba(236, 244, 239, 0.62);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .footer {
+      color: rgba(236, 244, 239, 0.58);
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 710;
+    }
+
+    .hero-layout {
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-title {
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero-title h1 span {
+      display: block;
+    }
+
+    .hero-visual {
+      min-height: 600px;
+      position: relative;
+      border: 1px solid rgba(214, 232, 226, 0.13);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(86, 168, 242, 0.10), rgba(57, 198, 139, 0.04)),
+        rgba(9, 21, 24, 0.52);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        linear-gradient(120deg, transparent 14%, rgba(214, 166, 78, 0.18) 14.4%, transparent 15%),
+        linear-gradient(63deg, transparent 58%, rgba(86, 168, 242, 0.14) 58.4%, transparent 59%),
+        linear-gradient(25deg, transparent 40%, rgba(57, 198, 139, 0.10) 40.2%, transparent 40.8%);
+      transform: rotate(-5deg);
+    }
+
+    .hero-visual svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-panels {
+      position: absolute;
+      left: 32px;
+      right: 32px;
+      bottom: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .hero-panel {
+      min-height: 102px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(226, 240, 234, 0.16);
+      background: rgba(7, 16, 18, 0.78);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-panel b {
+      display: block;
+      font-size: 22px;
+      line-height: 1.05;
+      margin-bottom: 7px;
+    }
+
+    .hero-panel span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .thesis-ring {
+      min-height: 545px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .ring-core {
+      position: absolute;
+      width: 235px;
+      height: 235px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(57, 198, 139, 0.24), transparent 48%),
+        rgba(8, 18, 20, 0.92);
+      border: 1px solid rgba(215, 232, 226, 0.2);
+      box-shadow:
+        0 24px 58px rgba(0, 0, 0, 0.30),
+        0 0 0 24px rgba(57, 198, 139, 0.026),
+        0 0 0 52px rgba(86, 168, 242, 0.025);
+      z-index: 3;
+    }
+
+    .ring-core strong {
+      font-size: 28px;
+      line-height: 1.04;
+    }
+
+    .ring-core span {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .orbit-card {
+      position: absolute;
+      width: 220px;
+      min-height: 132px;
+      padding: 18px;
+      border: 1px solid rgba(221, 239, 231, 0.16);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.014)),
+        rgba(10, 23, 26, 0.86);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+    }
+
+    .orbit-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .orbit-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .orbit-card.one {
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-color: rgba(57, 198, 139, 0.33);
+    }
+
+    .orbit-card.two {
+      bottom: 62px;
+      left: 52px;
+      border-color: rgba(86, 168, 242, 0.32);
+    }
+
+    .orbit-card.three {
+      bottom: 62px;
+      right: 52px;
+      border-color: rgba(201, 120, 63, 0.36);
+    }
+
+    .orbit-line {
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border: 1px dashed rgba(212, 230, 224, 0.18);
+      border-radius: 50%;
+    }
+
+    .problem-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .problem-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 13px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(8, 18, 20, 0.68);
+      border-radius: 8px;
+    }
+
+    .problem-icon,
+    .mini-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      background: rgba(57, 198, 139, 0.09);
+      border: 1px solid rgba(57, 198, 139, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .problem-icon svg,
+    .mini-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .problem-item:nth-child(2) .problem-icon {
+      color: var(--blue);
+      background: rgba(86, 168, 242, 0.09);
+      border-color: rgba(86, 168, 242, 0.22);
+    }
+
+    .problem-item:nth-child(3) .problem-icon {
+      color: var(--copper);
+      background: rgba(201, 120, 63, 0.10);
+      border-color: rgba(201, 120, 63, 0.25);
+    }
+
+    .problem-item:nth-child(4) .problem-icon {
+      color: var(--danger);
+      background: rgba(239, 111, 93, 0.09);
+      border-color: rgba(239, 111, 93, 0.22);
+    }
+
+    .problem-item h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .problem-item p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.36;
+    }
+
+    .gap-visual {
+      min-height: 440px;
+      position: relative;
+      padding: 24px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .gap-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: end;
+      margin: 24px 0 18px;
+    }
+
+    .gap-stack {
+      display: grid;
+      gap: 10px;
+      align-content: end;
+      min-height: 250px;
+    }
+
+    .gap-block {
+      height: var(--h);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, var(--color), rgba(255, 255, 255, 0.04));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gap-block::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.09), transparent 60%);
+    }
+
+    .gap-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .gap-center {
+      position: absolute;
+      inset: 152px 50%;
+      transform: translateX(-50%);
+      width: 86px;
+      height: 86px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(7, 15, 17, 0.88);
+      border: 1px solid rgba(239, 111, 93, 0.34);
+      color: var(--danger);
+      font-weight: 850;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.33);
+    }
+
+    .friction-map {
+      min-height: 520px;
+      padding: 24px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+    }
+
+    .signal-chain {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .signal-node {
+      position: relative;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(5, 13, 15, 0.54);
+      min-height: 170px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .signal-node::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      width: 22px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(239, 111, 93, 0.76), transparent);
+    }
+
+    .signal-node:last-child::after {
+      display: none;
+    }
+
+    .node-label {
+      color: var(--copper);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .signal-node strong {
+      font-size: 22px;
+      line-height: 1.08;
+    }
+
+    .signal-node p,
+    .friction-callout p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.34;
+    }
+
+    .friction-callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(239, 111, 93, 0.24);
+      background:
+        linear-gradient(90deg, rgba(239, 111, 93, 0.13), rgba(255, 255, 255, 0.018)),
+        rgba(5, 13, 15, 0.58);
+    }
+
+    .friction-callout strong {
+      color: var(--danger);
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .map-card {
+      position: relative;
+      min-height: 590px;
+      overflow: hidden;
+      padding: 26px;
+    }
+
+    .map-card svg {
+      position: absolute;
+      inset: 6% 2% 2% 6%;
+      width: 90%;
+      height: 90%;
+      opacity: 0.94;
+    }
+
+    .map-note {
+      position: absolute;
+      right: 26px;
+      top: 26px;
+      width: 252px;
+      z-index: 2;
+      padding: 17px;
+      border-radius: 8px;
+      border: 1px solid rgba(219, 236, 231, 0.15);
+      background: rgba(5, 14, 16, 0.75);
+      backdrop-filter: blur(14px);
+    }
+
+    .map-note strong {
+      display: block;
+      font-size: 29px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .map-note span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .country-dot {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid rgba(236, 244, 239, 0.82);
+      background: var(--green);
+      box-shadow: 0 0 24px rgba(57, 198, 139, 0.8);
+      z-index: 4;
+    }
+
+    .country-dot::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 15px;
+      top: -8px;
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 760;
+      white-space: nowrap;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(5, 13, 15, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .regional-card {
+      min-height: 590px;
+      padding: 26px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .regional-card::before {
+      content: "";
+      position: absolute;
+      inset: 84px 38px 92px;
+      border-left: 2px solid rgba(57, 198, 139, 0.28);
+      border-right: 2px solid rgba(86, 168, 242, 0.20);
+      transform: skewX(-10deg);
+      pointer-events: none;
+    }
+
+    .region-grid {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .region-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      border-left: 4px solid var(--region);
+      border-radius: 8px;
+      background: rgba(5, 13, 15, 0.64);
+    }
+
+    .region-row b {
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .region-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.34;
+    }
+
+    .region-row span {
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 830;
+      border: 1px solid rgba(236, 244, 239, 0.14);
+      border-radius: 999px;
+      padding: 6px 9px;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .regional-note {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 98px 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 20px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(57, 198, 139, 0.22);
+      background: rgba(57, 198, 139, 0.08);
+    }
+
+    .regional-note strong {
+      color: var(--green);
+      font-size: 28px;
+    }
+
+    .regional-note p {
+      margin: 0;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .module-stack {
+      display: grid;
+      gap: 13px;
+    }
+
+    .module-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(8, 19, 21, 0.68);
+      border: 1px solid rgba(218, 235, 230, 0.13);
+    }
+
+    .module-row h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .module-row p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.32;
+    }
+
+    .module-row small {
+      color: rgba(236, 244, 239, 0.7);
+      border: 1px solid rgba(236, 244, 239, 0.13);
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .product-flow {
+      display: grid;
+      gap: 9px;
+    }
+
+    .product-step {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(5, 13, 15, 0.56);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-step::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--step);
+    }
+
+    .product-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #061214;
+      background: linear-gradient(135deg, var(--step), rgba(236, 244, 239, 0.82));
+      font-weight: 880;
+    }
+
+    .product-step h3 {
+      font-size: 17px;
+      margin-bottom: 3px;
+    }
+
+    .product-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.32;
+    }
+
+    .product-step small {
+      color: var(--soft);
+      border: 1px solid rgba(236, 244, 239, 0.14);
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 850;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .value-callout {
+      padding: 13px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(57, 198, 139, 0.22);
+      background:
+        linear-gradient(90deg, rgba(57, 198, 139, 0.12), rgba(86, 168, 242, 0.06)),
+        rgba(5, 13, 15, 0.54);
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 690;
+    }
+
+    .dashboard {
+      min-height: 560px;
+      padding: 18px;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 14px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01)),
+        rgba(9, 19, 22, 0.78);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .window-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(236, 244, 239, 0.25);
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2px;
+    }
+
+    .dash-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--soft);
+    }
+
+    .dash-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .dash-kpi {
+      padding: 13px;
+      border: 1px solid rgba(229, 240, 235, 0.12);
+      border-radius: 8px;
+      background: rgba(6, 15, 17, 0.62);
+    }
+
+    .dash-kpi b {
+      display: block;
+      font-size: 25px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .dash-kpi span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .dash-main {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 13px;
+      min-height: 0;
+    }
+
+    .chart-card,
+    .talent-card {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(232, 242, 239, 0.12);
+      background: rgba(5, 13, 15, 0.56);
+      min-height: 0;
+    }
+
+    .bar-chart {
+      height: 205px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      align-items: end;
+      padding-top: 18px;
+    }
+
+    .bar {
+      min-height: 28px;
+      height: var(--h);
+      border-radius: 6px 6px 2px 2px;
+      background: linear-gradient(180deg, var(--bar), rgba(255, 255, 255, 0.08));
+      position: relative;
+    }
+
+    .bar::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: rgba(236, 244, 239, 0.56);
+    }
+
+    .talent-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .talent-row {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #061214;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      font-size: 12px;
+      font-weight: 860;
+    }
+
+    .talent-row b {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .talent-row span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .score {
+      color: var(--green);
+      font-weight: 850;
+      font-size: 13px;
+    }
+
+    .course-card {
+      min-height: 265px;
+      padding: 20px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -45% -20%;
+      height: 140px;
+      background: radial-gradient(circle, var(--glow), transparent 65%);
+      opacity: 0.28;
+    }
+
+    .course-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .course-card h3 {
+      font-size: 23px;
+    }
+
+    .course-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.38;
+      align-self: end;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(236, 244, 239, 0.67);
+      font-size: 12px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .progress-line {
+      height: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(236, 244, 239, 0.10);
+    }
+
+    .progress-line span {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+    }
+
+    .sim-stage {
+      min-height: 575px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(86, 168, 242, 0.08), rgba(5, 13, 15, 0.58)),
+        rgba(7, 16, 19, 0.72);
+      display: grid;
+      place-items: center;
+    }
+
+    .sim-stage svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+
+    .sim-overlay {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .sim-chip {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.15);
+      background: rgba(5, 13, 15, 0.76);
+      backdrop-filter: blur(14px);
+    }
+
+    .sim-chip b {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .sim-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.32;
+    }
+
+    .rubric {
+      display: grid;
+      gap: 12px;
+    }
+
+    .rubric-row {
+      display: grid;
+      grid-template-columns: 170px 1fr 70px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(8, 18, 20, 0.66);
+      border: 1px solid rgba(226, 239, 234, 0.12);
+    }
+
+    .rubric-row b {
+      font-size: 14px;
+      line-height: 1.15;
+    }
+
+    .rubric-track {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(236, 244, 239, 0.10);
+    }
+
+    .rubric-track span {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      background: linear-gradient(90deg, var(--copper), var(--green));
+      border-radius: inherit;
+    }
+
+    .rubric-score {
+      color: var(--green);
+      font-weight: 860;
+      text-align: right;
+    }
+
+    .competency-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      padding: 18px;
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flow-step::after {
+      content: "";
+      position: absolute;
+      top: 34px;
+      right: -11px;
+      width: 22px;
+      height: 22px;
+      border-top: 1px solid rgba(236, 244, 239, 0.26);
+      border-right: 1px solid rgba(236, 244, 239, 0.26);
+      transform: rotate(45deg);
+      background: #0b171a;
+      z-index: 2;
+    }
+
+    .flow-step:last-child::after {
+      display: none;
+    }
+
+    .flow-step .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(57, 198, 139, 0.12);
+      border: 1px solid rgba(57, 198, 139, 0.24);
+      color: var(--green);
+      font-weight: 860;
+      margin-bottom: 18px;
+    }
+
+    .flow-step h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .flow-step p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.38;
+    }
+
+    .passport {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      min-height: 560px;
+      overflow: hidden;
+    }
+
+    .passport-left {
+      padding: 26px;
+      background:
+        linear-gradient(160deg, rgba(57, 198, 139, 0.16), rgba(86, 168, 242, 0.08)),
+        rgba(6, 15, 17, 0.58);
+      border-right: 1px solid rgba(236, 244, 239, 0.10);
+      display: grid;
+      align-content: space-between;
+    }
+
+    .profile-block {
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #061214;
+      font-weight: 850;
+      font-size: 30px;
+      background:
+        linear-gradient(135deg, var(--green), var(--blue)),
+        #10251f;
+      box-shadow: 0 18px 42px rgba(57, 198, 139, 0.20);
+    }
+
+    .profile-block h3 {
+      font-size: 34px;
+      line-height: 1.02;
+    }
+
+    .qr {
+      width: 122px;
+      height: 122px;
+      border-radius: 8px;
+      padding: 10px;
+      background: #eff7f2;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+
+    .qr span {
+      background: #071013;
+      border-radius: 2px;
+      opacity: var(--o);
+    }
+
+    .passport-right {
+      padding: 26px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .badge-row {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 13px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.12);
+      background: rgba(5, 13, 15, 0.46);
+    }
+
+    .badge-medal {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      background: rgba(214, 166, 78, 0.10);
+      border: 1px solid rgba(214, 166, 78, 0.22);
+    }
+
+    .badge-medal svg {
+      width: 36px;
+      height: 36px;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      fill: none;
+    }
+
+    .badge-row h3 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .badge-row p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.28;
+    }
+
+    .verified {
+      color: var(--green);
+      border: 1px solid rgba(57, 198, 139, 0.24);
+      background: rgba(57, 198, 139, 0.08);
+      border-radius: 999px;
+      padding: 7px 9px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .marketplace {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .filter-panel {
+      padding: 20px;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      min-height: 360px;
+    }
+
+    .filter-group {
+      display: grid;
+      gap: 9px;
+    }
+
+    .filter-label {
+      color: rgba(236, 244, 239, 0.64);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .filter-input {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(4, 12, 14, 0.66);
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 690;
+    }
+
+    .candidate-grid {
+      display: grid;
+      gap: 13px;
+    }
+
+    .candidate-card {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.012)),
+        rgba(6, 15, 17, 0.67);
+    }
+
+    .candidate-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #061214;
+      font-size: 17px;
+      font-weight: 860;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+    }
+
+    .candidate-card h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .candidate-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .match-score {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      color: var(--green);
+      border: 2px solid rgba(57, 198, 139, 0.44);
+      background: rgba(57, 198, 139, 0.08);
+      font-size: 18px;
+      font-weight: 870;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .phase-card {
+      min-height: 350px;
+      padding: 20px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-top: 4px solid var(--phase);
+      opacity: 0.92;
+    }
+
+    .phase-card small {
+      color: var(--phase);
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .phase-card h3 {
+      font-size: 24px;
+      line-height: 1.08;
+    }
+
+    .phase-card ul,
+    .partner-card ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .phase-card li,
+    .partner-card li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.32;
+    }
+
+    .phase-card li::before,
+    .partner-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--phase, var(--green));
+    }
+
+    .revenue-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .revenue-item {
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(5, 13, 15, 0.54);
+      min-height: 92px;
+    }
+
+    .revenue-item b {
+      display: block;
+      font-size: 15px;
+      line-height: 1.16;
+      margin-bottom: 6px;
+    }
+
+    .revenue-item span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .partner-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .partner-card {
+      padding: 25px;
+      display: grid;
+      gap: 18px;
+      min-height: 505px;
+      align-content: start;
+    }
+
+    .partner-card h3 {
+      font-size: 30px;
+    }
+
+    .ask-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .ask-item {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.12);
+      background: rgba(5, 13, 15, 0.50);
+    }
+
+    .ask-number {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #051012;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      font-weight: 880;
+    }
+
+    .ask-item b {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .ask-item span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.32;
+    }
+
+    .pilot-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .pilot-kpi {
+      padding: 17px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.13);
+      background: rgba(5, 13, 15, 0.54);
+      min-height: 118px;
+    }
+
+    .pilot-kpi strong {
+      display: block;
+      color: var(--green);
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .pilot-kpi span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.34;
+    }
+
+    .pilot-timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pilot-step {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.12);
+      background: rgba(5, 13, 15, 0.50);
+    }
+
+    .pilot-step time {
+      color: #061214;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 880;
+    }
+
+    .pilot-step b {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .pilot-step span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.32;
+    }
+
+    .commitment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .commitment-card {
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(230, 242, 238, 0.12);
+      background: rgba(5, 13, 15, 0.44);
+    }
+
+    .commitment-card b {
+      display: block;
+      color: var(--soft);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .commitment-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .closing-lockup {
+      display: grid;
+      gap: 24px;
+      max-width: 920px;
+    }
+
+    .closing-lockup h2 {
+      font-size: 76px;
+    }
+
+    .controls {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(236, 244, 239, 0.15);
+      background: rgba(3, 9, 10, 0.68);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .control-button {
+      border: 1px solid rgba(236, 244, 239, 0.13);
+      background: rgba(255, 255, 255, 0.05);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition:
+        transform 160ms ease,
+        background 160ms ease,
+        border-color 160ms ease;
+    }
+
+    .control-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(57, 198, 139, 0.42);
+      background: rgba(57, 198, 139, 0.12);
+    }
+
+    .control-button:disabled {
+      opacity: 0.36;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .control-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .control-button .icon-exit-fullscreen {
+      display: none;
+    }
+
+    .control-button.is-fullscreen .icon-fullscreen {
+      display: none;
+    }
+
+    .control-button.is-fullscreen .icon-exit-fullscreen {
+      display: block;
+    }
+
+    .counter {
+      min-width: 48px;
+      text-align: center;
+      color: rgba(236, 244, 239, 0.78);
+      font-weight: 780;
+      font-size: 12px;
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 21;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--copper));
+      transition: width 220ms ease;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .title-split {
+      display: grid;
+      gap: 16px;
+    }
+
+    .quote-line {
+      padding-left: 20px;
+      border-left: 3px solid var(--green);
+      color: var(--soft);
+      font-size: 24px;
+      line-height: 1.34;
+      max-width: 760px;
+    }
+
+    @media (max-width: 1100px), (max-height: 680px) {
+      .slide {
+        padding: 42px 48px 34px;
+      }
+
+      h1 {
+        font-size: clamp(44px, 5.8vw, 80px);
+      }
+
+      h2 {
+        font-size: clamp(32px, 4vw, 58px);
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .hero-visual,
+      .map-card,
+      .sim-stage {
+        min-height: 460px;
+      }
+
+      .dashboard,
+      .filter-panel,
+      .passport,
+      .partner-card {
+        min-height: 440px;
+      }
+
+      .metric strong {
+        font-size: 28px;
+      }
+
+      .problem-item {
+        padding: 13px;
+      }
+
+      .problem-item p,
+      .course-card p,
+      .phase-card li,
+      .revenue-item span {
+        font-size: 12px;
+      }
+
+      .course-card {
+        min-height: 220px;
+      }
+
+      .rubric-row {
+        grid-template-columns: 120px 1fr 56px;
+      }
+
+      .revenue-row {
+        gap: 8px;
+      }
+
+      .controls {
+        bottom: 14px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        overflow: auto;
+      }
+
+      .deck-shell {
+        min-height: 100vh;
+        height: auto;
+        padding: 0;
+      }
+
+      .deck {
+        width: 100vw;
+        min-height: 100vh;
+        aspect-ratio: auto;
+        border-radius: 0;
+        position: relative;
+        inset: auto;
+        transform: none;
+      }
+
+      .slide {
+        position: relative;
+        display: none;
+        min-height: 100vh;
+        padding: 32px 20px 98px;
+      }
+
+      .slide.active {
+        display: grid;
+      }
+
+      .grid-2,
+      .hero-layout,
+      .platform-grid,
+      .passport,
+      .marketplace,
+      .partner-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-4,
+      .competency-flow,
+      .roadmap,
+      .revenue-row,
+      .hero-panels,
+      .sim-overlay {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual,
+      .map-card,
+      .sim-stage,
+      .dashboard,
+      .filter-panel,
+      .partner-card {
+        min-height: 420px;
+      }
+
+      .controls {
+        width: calc(100vw - 24px);
+        justify-content: center;
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: 14px;
+        transform: translateX(-50%);
+        flex-direction: row;
+      }
+    }
+
+    @media print {
+      html,
+      body {
+        background: #fff;
+        overflow: visible;
+      }
+
+      .deck-shell {
+        display: block;
+        height: auto;
+        padding: 0;
+      }
+
+      .deck {
+        width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+        border: 0;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .slide {
+        position: relative;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        page-break-after: always;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .controls,
+      .progress {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck-shell" aria-label="Presentación MinePass LATAM">
+    <div class="deck" id="deck">
+      <section class="slide active" data-title="Portada" style="--slide-bg: linear-gradient(135deg, #071013 0%, #13201c 55%, #0c272d 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup">
+            <span class="brand-mark" aria-hidden="true"></span>
+            MinePass LATAM
+          </div>
+          <span class="eyebrow">Presentación corporativa</span>
+        </header>
+        <div class="content grid-2 hero-layout">
+          <div class="hero-title">
+            <h1><span>MinePass</span><span class="accent">LATAM</span></h1>
+            <p class="lead">
+              Plataforma SaaS para capacitación, evaluación, certificación y empleabilidad en minería, petróleo, gas y energía de Latinoamérica.
+            </p>
+            <div class="pill-row" aria-label="Sectores principales">
+              <span class="pill">Minería</span>
+              <span class="pill">Petróleo y gas</span>
+              <span class="pill">Energía</span>
+              <span class="pill">Contratistas</span>
+            </div>
+          </div>
+          <div class="hero-visual card" aria-label="Visual industrial de MinePass LATAM">
+            <svg viewBox="0 0 700 620" role="img" aria-label="Trabajador certificado frente a operación industrial">
+              <defs>
+                <linearGradient id="helmet" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#f2b960"/>
+                  <stop offset="100%" stop-color="#c9783f"/>
+                </linearGradient>
+                <linearGradient id="tower" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#56a8f2"/>
+                  <stop offset="100%" stop-color="#1d444f"/>
+                </linearGradient>
+                <linearGradient id="mine" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#39c68b"/>
+                  <stop offset="100%" stop-color="#0f4032"/>
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="6" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect x="0" y="0" width="700" height="620" fill="transparent"/>
+              <path d="M50 500 C160 410 240 410 350 500 C460 590 550 560 660 430 L700 620 L0 620 Z" fill="rgba(57,198,139,0.13)"/>
+              <path d="M32 516 C160 454 258 454 368 522 C468 586 578 560 688 482" fill="none" stroke="rgba(57,198,139,0.55)" stroke-width="3"/>
+              <g opacity="0.8">
+                <path d="M470 128 L548 472" stroke="url(#tower)" stroke-width="8"/>
+                <path d="M590 124 L548 472" stroke="url(#tower)" stroke-width="8"/>
+                <path d="M466 130 H592 L570 88 H500 Z" fill="rgba(86,168,242,0.20)" stroke="rgba(86,168,242,0.70)" stroke-width="4"/>
+                <path d="M486 205 H575 M502 278 H566 M518 351 H558" stroke="rgba(199,216,210,0.55)" stroke-width="4"/>
+                <path d="M494 205 L570 278 M572 205 L504 278 M510 278 L560 351 M564 278 L520 351" stroke="rgba(199,216,210,0.32)" stroke-width="3"/>
+                <circle cx="590" cy="124" r="9" fill="#56a8f2" filter="url(#glow)"/>
+              </g>
+              <g transform="translate(62 255)" opacity="0.95">
+                <path d="M20 250 H285 L244 178 H70 Z" fill="rgba(201,120,63,0.16)" stroke="rgba(201,120,63,0.50)" stroke-width="3"/>
+                <path d="M86 178 L138 94 L220 178" fill="none" stroke="rgba(214,166,78,0.58)" stroke-width="5"/>
+                <path d="M132 94 H224 L270 178" fill="none" stroke="rgba(214,166,78,0.36)" stroke-width="4"/>
+                <circle cx="92" cy="250" r="24" fill="#0b171a" stroke="rgba(236,244,239,0.38)" stroke-width="5"/>
+                <circle cx="222" cy="250" r="24" fill="#0b171a" stroke="rgba(236,244,239,0.38)" stroke-width="5"/>
+              </g>
+              <g transform="translate(245 112)">
+                <circle cx="118" cy="96" r="64" fill="rgba(236,244,239,0.92)"/>
+                <path d="M56 94 C58 48 84 22 120 22 C158 22 181 52 181 94 H56 Z" fill="url(#helmet)"/>
+                <rect x="52" y="84" width="136" height="22" rx="11" fill="#d6a64e"/>
+                <path d="M72 178 C88 144 148 144 166 178 L198 344 H38 Z" fill="rgba(236,244,239,0.86)"/>
+                <path d="M92 174 H144 L156 344 H80 Z" fill="rgba(57,198,139,0.18)"/>
+                <path d="M38 344 H198 L182 410 H55 Z" fill="rgba(8,18,20,0.92)" stroke="rgba(236,244,239,0.22)" stroke-width="3"/>
+                <path d="M94 216 H148" stroke="rgba(8,18,20,0.55)" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="188" cy="218" r="38" fill="rgba(57,198,139,0.13)" stroke="rgba(57,198,139,0.72)" stroke-width="4"/>
+                <path d="M172 218 L184 230 L205 202" fill="none" stroke="#39c68b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <g opacity="0.72">
+                <path d="M84 118 H170 M112 150 H198 M64 186 H152" stroke="rgba(236,244,239,0.28)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M562 508 H652 M524 538 H648" stroke="rgba(236,244,239,0.26)" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div class="hero-panels">
+              <div class="hero-panel">
+                <b>Competencias</b>
+                <span>Habilidades técnicas y seguridad industrial validadas.</span>
+              </div>
+              <div class="hero-panel">
+                <b>Certificación</b>
+                <span>Credenciales verificables para empresas y contratistas.</span>
+              </div>
+              <div class="hero-panel">
+                <b>Empleo</b>
+                <span>Matching directo entre talento y demanda operativa.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>Capacitación como medio. Competencias verificadas como activo.</span>
+          <span>01 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Tesis" style="--slide-bg: linear-gradient(135deg, #071013 0%, #112622 52%, #101c2a 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag">La tesis</span>
+        </header>
+        <div class="content grid-2">
+          <div class="title-split">
+            <h2>El mercado no necesita solo más cursos. Necesita un estándar confiable.</h2>
+            <p class="lead">
+              MinePass conecta tres mundos que hoy operan separados: formación técnica, validación de competencias y acceso a oportunidades laborales.
+            </p>
+            <p class="quote-line">
+              La capacitación es el canal. El activo estratégico es el pasaporte verificable de competencias y su vínculo con la contratación.
+            </p>
+          </div>
+          <div class="thesis-ring card">
+            <div class="orbit-line"></div>
+            <div class="ring-core">
+              <div>
+                <strong>Estándar regional</strong>
+                <span>Una señal común entre trabajadores, empresas e instituciones.</span>
+              </div>
+            </div>
+            <article class="orbit-card one">
+              <h3>Capacitar</h3>
+              <p>Academia digital con rutas por rol, sector, protocolo y nivel operativo.</p>
+            </article>
+            <article class="orbit-card two">
+              <h3>Certificar</h3>
+              <p>Evidencia de desempeño, métricas y credenciales verificables.</p>
+            </article>
+            <article class="orbit-card three">
+              <h3>Emplear</h3>
+              <p>Marketplace donde las empresas encuentran talento validado.</p>
+            </article>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>MinePass transforma formación en señal laboral verificable</span>
+          <span>02 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Problema regional" style="--slide-bg: linear-gradient(135deg, #080f11 0%, #1c1714 48%, #10221d 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag copper">Problema regional</span>
+        </header>
+        <div class="content grid-2">
+          <div class="stack">
+            <h2>La brecha de confianza frena productividad, seguridad y contratación.</h2>
+            <p class="lead">
+              En industrias de alto riesgo, un CV o un certificado aislado no alcanza para demostrar capacidad operativa real.
+            </p>
+            <div class="problem-list">
+              <article class="problem-item">
+                <div class="problem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M5 25h22M8 25V10l8-4 8 4v15M12 25v-7h8v7M12 13h8"/></svg>
+                </div>
+                <div>
+                  <h3>Empresas sin señal técnica comparable</h3>
+                  <p>Dificultad para encontrar personal validado por competencias, protocolos y contexto de riesgo.</p>
+                </div>
+              </article>
+              <article class="problem-item">
+                <div class="problem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M16 4v24M7 10h18M9 22h14M9 10l-4 8h8l-4-8ZM23 10l-4 8h8l-4-8Z"/></svg>
+                </div>
+                <div>
+                  <h3>Trabajadores sin prueba objetiva</h3>
+                  <p>La experiencia queda dispersa entre cursos, referencias, certificados físicos y procesos informales.</p>
+                </div>
+              </article>
+              <article class="problem-item">
+                <div class="problem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M6 24c5-8 15-8 20 0M10 14a6 6 0 1 0 12 0 6 6 0 0 0-12 0ZM5 6h22"/></svg>
+                </div>
+                <div>
+                  <h3>Capacitación desconectada de empleo</h3>
+                  <p>Los cursos terminan sin convertirse en oportunidades, ranking de talento ni trazabilidad corporativa.</p>
+                </div>
+              </article>
+              <article class="problem-item">
+                <div class="problem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M16 4l12 22H4L16 4ZM16 12v6M16 23h.01"/></svg>
+                </div>
+                <div>
+                  <h3>Entrenamientos costosos de escalar</h3>
+                  <p>El entrenamiento práctico exige instalaciones, instructores, equipos y ventanas operativas difíciles de coordinar.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="friction-map card">
+            <div class="dash-header">
+              <div class="dash-title">Dónde se rompe la confianza</div>
+              <span class="caption">Esquema conceptual, no datos reales</span>
+            </div>
+            <div class="signal-chain">
+              <article class="signal-node">
+                <span class="node-label">Trabajador</span>
+                <strong>Experiencia dispersa</strong>
+                <p>Cursos, certificados, referencias y horas de campo no quedan en una evidencia común.</p>
+              </article>
+              <article class="signal-node">
+                <span class="node-label">Empresa</span>
+                <strong>Validación tardía</strong>
+                <p>La competencia real suele comprobarse durante inducción, prueba técnica o ya en operación.</p>
+              </article>
+              <article class="signal-node">
+                <span class="node-label">Contratación</span>
+                <strong>Decisión incompleta</strong>
+                <p>El match depende de CV, disponibilidad y referencias, no de competencias comparables.</p>
+              </article>
+            </div>
+            <div class="friction-callout">
+              <strong>Fricción</strong>
+              <p>MinePass reduce esa fricción creando una señal verificable antes de contratar, movilizar o habilitar ingreso a sitio.</p>
+            </div>
+            <div class="grid-3">
+              <div class="metric card">
+                <strong>Costos</strong>
+                <span>Selección, inducción y retrabajo por baja evidencia previa.</span>
+              </div>
+              <div class="metric card">
+                <strong>Riesgo</strong>
+                <span>Protocolos críticos evaluados tarde o de forma parcial.</span>
+              </div>
+              <div class="metric card">
+                <strong>Tiempo</strong>
+                <span>Contratación lenta para operaciones que no pueden esperar.</span>
+              </div>
+            </div>
+            <p class="caption">Los bloques describen el problema de mercado de forma conceptual. No representan mediciones reales ni benchmarks.</p>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>El problema no es solo educativo. Es una falla de señal en el mercado laboral.</span>
+          <span>03 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Oportunidad LATAM" style="--slide-bg: linear-gradient(135deg, #071013 0%, #0f2422 48%, #101a22 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag blue">Oportunidad LATAM</span>
+        </header>
+        <div class="content grid-2">
+          <div class="stack">
+            <h2>Una región con alta demanda técnica y una oportunidad de estandarización.</h2>
+            <p class="lead">
+              Minería, petróleo, gas y energía comparten una necesidad estructural: validar competencias para operar con seguridad, cumplir protocolos y movilizar talento entre proyectos.
+            </p>
+            <div class="grid-2">
+              <div class="metric card large-metric">
+                <strong>4</strong>
+                <span>Sectores con riesgo operativo alto y necesidades comunes de capacitación verificable.</span>
+              </div>
+              <div class="metric card large-metric">
+                <strong>1</strong>
+                <span>Pasaporte laboral digital interoperable para empresas, trabajadores e instituciones.</span>
+              </div>
+            </div>
+            <div class="pill-row">
+              <span class="pill">Chile</span>
+              <span class="pill">Argentina</span>
+              <span class="pill">Perú</span>
+              <span class="pill">México</span>
+              <span class="pill">Colombia</span>
+              <span class="pill">Brasil</span>
+            </div>
+          </div>
+          <div class="regional-card card">
+            <div class="dash-header">
+              <div class="dash-title">Región objetivo inicial</div>
+              <span class="caption">Mapa operativo, no geográfico a escala</span>
+            </div>
+            <div class="region-grid">
+              <article class="region-row" style="--region: #56a8f2;">
+                <b>Norte</b>
+                <p>México y Colombia concentran oportunidades en oil & gas, energía, contratistas e instituciones técnicas.</p>
+                <span>Oil & Gas</span>
+              </article>
+              <article class="region-row" style="--region: #39c68b;">
+                <b>Andina</b>
+                <p>Perú y Chile permiten validar rutas mineras, seguridad industrial y movilidad de talento especializado.</p>
+                <span>Minería</span>
+              </article>
+              <article class="region-row" style="--region: #c9783f;">
+                <b>Cono Sur</b>
+                <p>Argentina suma minería, Vaca Muerta, servicios petroleros, energía y demanda de certificación regional.</p>
+                <span>Energía</span>
+              </article>
+              <article class="region-row" style="--region: #d6a64e;">
+                <b>Brasil</b>
+                <p>Mercado grande para expansión futura con industria energética, proveedores y formación técnica escalable.</p>
+                <span>Escala</span>
+              </article>
+            </div>
+            <div class="regional-note">
+              <strong>LATAM</strong>
+              <p>El foco no es dibujar todos los países: es crear una credencial portable entre operaciones, contratistas e instituciones de la región.</p>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>El estándar puede viajar con la persona, la empresa y el proyecto.</span>
+          <span>04 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Solución integral" style="--slide-bg: linear-gradient(135deg, #061012 0%, #12231f 50%, #0e202a 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag">Solución</span>
+        </header>
+        <div class="content platform-grid">
+          <div class="stack">
+            <h2>Una plataforma única para formar, medir, certificar y conectar talento.</h2>
+            <p class="lead">
+              MinePass convierte cada instancia de aprendizaje y evaluación en datos de competencia accionables para el ecosistema productivo.
+            </p>
+            <div class="product-flow">
+              <article class="product-step" style="--step: #39c68b;">
+                <div class="product-number">01</div>
+                <div><h3>Formar</h3><p>Academia digital con rutas por rol, sector y protocolo crítico.</p></div>
+                <small>MVP Fase 1</small>
+              </article>
+              <article class="product-step" style="--step: #c9783f;">
+                <div class="product-number">02</div>
+                <div><h3>Medir</h3><p>Evaluación de decisiones, cumplimiento operativo y brechas de seguridad.</p></div>
+                <small>Core</small>
+              </article>
+              <article class="product-step" style="--step: #39c68b;">
+                <div class="product-number">03</div>
+                <div><h3>Certificar</h3><p>Pasaporte laboral con credenciales verificables para empresas e instituciones.</p></div>
+                <small>MVP Fase 1</small>
+              </article>
+              <article class="product-step" style="--step: #56a8f2;">
+                <div class="product-number">04</div>
+                <div><h3>Simular</h3><p>Web 3D y VR agregan evidencia de desempeño en escenarios de alto riesgo.</p></div>
+                <small>Expansión Fase 2</small>
+              </article>
+              <article class="product-step" style="--step: #d6a64e;">
+                <div class="product-number">05</div>
+                <div><h3>Conectar</h3><p>Marketplace convierte competencias verificadas en shortlist y empleabilidad.</p></div>
+                <small>Expansión Fase 3</small>
+              </article>
+            </div>
+          </div>
+          <div class="dashboard card" aria-label="Mockup de panel de plataforma MinePass">
+            <div class="dash-header">
+              <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="dash-title">MinePass Command Center</div>
+            </div>
+            <div class="dash-kpis">
+              <div class="dash-kpi"><b>1.842</b><span>perfiles en rutas críticas</span></div>
+              <div class="dash-kpi"><b>84%</b><span>cumplimiento promedio</span></div>
+              <div class="dash-kpi"><b>312</b><span>certificaciones activas</span></div>
+            </div>
+            <div class="dash-main">
+              <div class="chart-card">
+                <div class="dash-title">Competencias por familia</div>
+                <div class="bar-chart">
+                  <div class="bar" data-label="LOTO" style="--h: 78%; --bar: rgba(57,198,139,0.78);"></div>
+                  <div class="bar" data-label="Altura" style="--h: 62%; --bar: rgba(86,168,242,0.78);"></div>
+                  <div class="bar" data-label="Mina" style="--h: 88%; --bar: rgba(201,120,63,0.78);"></div>
+                  <div class="bar" data-label="Pozo" style="--h: 56%; --bar: rgba(214,166,78,0.78);"></div>
+                  <div class="bar" data-label="HSE" style="--h: 72%; --bar: rgba(57,198,139,0.66);"></div>
+                  <div class="bar" data-label="Energía" style="--h: 48%; --bar: rgba(86,168,242,0.66);"></div>
+                </div>
+              </div>
+              <div class="talent-card">
+                <div class="dash-title">Talento recomendado</div>
+                <div class="talent-list">
+                  <div class="talent-row"><div class="avatar">AG</div><div><b>Operador mina</b><span>Camión + protocolos HSE</span></div><div class="score">94</div></div>
+                  <div class="talent-row"><div class="avatar">MR</div><div><b>Técnica eléctrica</b><span>LOTO + media tensión</span></div><div class="score">91</div></div>
+                  <div class="talent-row"><div class="avatar">JP</div><div><b>Supervisor pozo</b><span>Well control + respuesta</span></div><div class="score">88</div></div>
+                  <div class="talent-row"><div class="avatar">LV</div><div><b>Soldador certificado</b><span>Espacios confinados</span></div><div class="score">86</div></div>
+                </div>
+              </div>
+            </div>
+            <p class="caption">Datos ilustrativos para presentación. El MVP definirá métricas y taxonomías con socios sectoriales.</p>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>De curso a competencia verificable. De competencia verificable a contratación.</span>
+          <span>05 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Academia digital" style="--slide-bg: linear-gradient(135deg, #071013 0%, #142018 48%, #111b24 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag">Fase 1 | Academia digital</span>
+        </header>
+        <div class="content stack">
+          <div class="grid-2">
+            <div>
+              <h2>Rutas formativas por rol, sector y criticidad operativa.</h2>
+            </div>
+            <p class="lead">
+              El MVP inicia con una plataforma web para cursos, certificaciones y perfiles profesionales. Cada curso alimenta una matriz de competencias.
+            </p>
+          </div>
+          <div class="grid-4">
+            <article class="course-card card" style="--glow: #39c68b;">
+              <div class="course-head">
+                <span class="section-tag">Mina</span>
+                <span class="caption">Nivel inicial</span>
+              </div>
+              <h3>Inducción HSE para operación minera</h3>
+              <p>Riesgos críticos, permisos de trabajo, tránsito interno, EPP y reporte de incidentes.</p>
+              <div class="tight-stack">
+                <div class="progress-line"><span style="--w: 82%;"></span></div>
+                <div class="course-meta"><span>12 módulos</span><span>Certificable</span></div>
+              </div>
+            </article>
+            <article class="course-card card" style="--glow: #56a8f2;">
+              <div class="course-head">
+                <span class="section-tag blue">Energía</span>
+                <span class="caption">Técnico</span>
+              </div>
+              <h3>LOTO y seguridad eléctrica</h3>
+              <p>Bloqueo, etiquetado, energía cero, verificación, responsabilidad y liberación de equipos.</p>
+              <div class="tight-stack">
+                <div class="progress-line"><span style="--w: 74%;"></span></div>
+                <div class="course-meta"><span>9 módulos</span><span>Evaluación</span></div>
+              </div>
+            </article>
+            <article class="course-card card" style="--glow: #c9783f;">
+              <div class="course-head">
+                <span class="section-tag copper">Oil & Gas</span>
+                <span class="caption">Operativo</span>
+              </div>
+              <h3>Trabajo seguro en pozo y planta</h3>
+              <p>Presión, atmósferas peligrosas, respuesta a emergencias y control documental.</p>
+              <div class="tight-stack">
+                <div class="progress-line"><span style="--w: 69%;"></span></div>
+                <div class="course-meta"><span>10 módulos</span><span>Certificable</span></div>
+              </div>
+            </article>
+            <article class="course-card card" style="--glow: #d6a64e;">
+              <div class="course-head">
+                <span class="section-tag copper">Contratistas</span>
+                <span class="caption">Transversal</span>
+              </div>
+              <h3>Permisos, calidad y cumplimiento</h3>
+              <p>Checklists, procedimientos, trazabilidad, auditorías y criterios de ingreso a faena.</p>
+              <div class="tight-stack">
+                <div class="progress-line"><span style="--w: 77%;"></span></div>
+                <div class="course-meta"><span>8 módulos</span><span>Corporativo</span></div>
+              </div>
+            </article>
+          </div>
+          <div class="competency-flow">
+            <article class="flow-step card">
+              <div class="step-number">1</div>
+              <h3>Diagnóstico</h3>
+              <p>El usuario inicia con un perfil, rol objetivo y evaluación de línea base.</p>
+            </article>
+            <article class="flow-step card">
+              <div class="step-number">2</div>
+              <h3>Ruta</h3>
+              <p>La plataforma asigna contenidos técnicos y módulos de seguridad industrial.</p>
+            </article>
+            <article class="flow-step card">
+              <div class="step-number">3</div>
+              <h3>Evaluación</h3>
+              <p>Cada módulo mide comprensión, toma de decisiones y cumplimiento de protocolos.</p>
+            </article>
+            <article class="flow-step card">
+              <div class="step-number">4</div>
+              <h3>Credencial</h3>
+              <p>La evidencia aprobada se convierte en certificación verificable dentro del pasaporte.</p>
+            </article>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>El contenido se organiza alrededor de competencias, no solo de cursos.</span>
+          <span>06 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Simulaciones inmersivas" style="--slide-bg: linear-gradient(135deg, #071013 0%, #101b25 50%, #1a2117 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag blue">Fase 2 | Simulaciones</span>
+        </header>
+        <div class="content grid-2">
+          <div class="stack">
+            <h2>Del aprendizaje declarativo al desempeño observado.</h2>
+            <p class="lead">
+              Web 3D y VR permiten entrenar decisiones críticas sin exponer personas, equipos ni producción. La experiencia genera evidencia de comportamiento.
+            </p>
+            <div class="grid-2">
+              <div class="metric card">
+                <strong>Mina</strong>
+                <span>Ingreso a faena, tránsito, equipos móviles, espacios confinados y rescate.</span>
+              </div>
+              <div class="metric card">
+                <strong>Oil & Gas</strong>
+                <span>Pozo, planta, válvulas, atmósferas, incendio, presión y emergencia.</span>
+              </div>
+              <div class="metric card">
+                <strong>Energía</strong>
+                <span>LOTO, subestaciones, altura, media tensión y mantenimiento seguro.</span>
+              </div>
+              <div class="metric card">
+                <strong>Contratistas</strong>
+                <span>Inducciones escalables antes de ingreso a sitio y auditorías de desempeño.</span>
+              </div>
+            </div>
+          </div>
+          <div class="sim-stage card" aria-label="Escena inmersiva de simulación industrial">
+            <svg viewBox="0 0 760 575" role="img" aria-label="Simulación Web 3D de mina, petróleo y energía">
+              <defs>
+                <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(86,168,242,0.24)"/>
+                  <stop offset="100%" stop-color="rgba(7,16,19,0.1)"/>
+                </linearGradient>
+                <linearGradient id="ground" x1="0" x2="1">
+                  <stop offset="0%" stop-color="rgba(201,120,63,0.35)"/>
+                  <stop offset="50%" stop-color="rgba(57,198,139,0.16)"/>
+                  <stop offset="100%" stop-color="rgba(86,168,242,0.20)"/>
+                </linearGradient>
+              </defs>
+              <rect width="760" height="575" fill="url(#sky)"/>
+              <path d="M0 376 C90 312 178 340 256 386 C350 440 442 390 520 332 C600 274 690 302 760 356 V575 H0 Z" fill="url(#ground)"/>
+              <path d="M0 395 C110 342 202 364 296 416 C376 460 462 422 540 367 C618 312 694 330 760 380" fill="none" stroke="rgba(236,244,239,0.20)" stroke-width="3"/>
+              <g transform="translate(68 246)">
+                <path d="M18 172 H280 L236 112 H70 Z" fill="rgba(201,120,63,0.25)" stroke="rgba(214,166,78,0.42)" stroke-width="3"/>
+                <path d="M88 112 L140 30 L225 112" stroke="rgba(214,166,78,0.7)" stroke-width="5" fill="none"/>
+                <path d="M142 30 H226 L278 112" stroke="rgba(214,166,78,0.42)" stroke-width="4" fill="none"/>
+                <circle cx="90" cy="173" r="24" fill="#071013" stroke="rgba(236,244,239,0.36)" stroke-width="5"/>
+                <circle cx="220" cy="173" r="24" fill="#071013" stroke="rgba(236,244,239,0.36)" stroke-width="5"/>
+              </g>
+              <g transform="translate(435 95)" opacity="0.92">
+                <path d="M58 336 L104 0 L148 336" stroke="rgba(86,168,242,0.75)" stroke-width="8" fill="none"/>
+                <path d="M25 112 H182 M42 192 H166 M58 272 H150" stroke="rgba(236,244,239,0.38)" stroke-width="4"/>
+                <path d="M25 112 L166 192 M182 112 L42 192 M42 192 L150 272 M166 192 L58 272" stroke="rgba(236,244,239,0.24)" stroke-width="3"/>
+                <path d="M104 0 L174 58 H34 Z" fill="rgba(86,168,242,0.18)" stroke="rgba(86,168,242,0.58)" stroke-width="3"/>
+              </g>
+              <g transform="translate(560 310)" opacity="0.94">
+                <rect x="32" y="55" width="78" height="130" fill="rgba(236,244,239,0.18)" stroke="rgba(236,244,239,0.30)" stroke-width="3"/>
+                <rect x="120" y="18" width="42" height="167" fill="rgba(201,120,63,0.20)" stroke="rgba(201,120,63,0.48)" stroke-width="3"/>
+                <path d="M141 18 C158 -18 188 -6 180 24" fill="none" stroke="rgba(236,244,239,0.32)" stroke-width="5"/>
+                <circle cx="72" cy="52" r="24" fill="rgba(57,198,139,0.18)" stroke="rgba(57,198,139,0.55)" stroke-width="4"/>
+              </g>
+              <g transform="translate(310 248)">
+                <path d="M78 38 C80 10 98 -4 122 0 C145 4 158 20 158 45 H78 Z" fill="#d6a64e"/>
+                <rect x="72" y="38" width="92" height="15" rx="8" fill="#c9783f"/>
+                <circle cx="120" cy="80" r="38" fill="rgba(236,244,239,0.88)"/>
+                <path d="M80 132 C94 105 146 105 160 132 L184 242 H54 Z" fill="rgba(236,244,239,0.84)"/>
+                <path d="M96 134 H146 L154 242 H88 Z" fill="rgba(57,198,139,0.18)"/>
+              </g>
+              <g opacity="0.95">
+                <rect x="40" y="40" width="190" height="76" rx="8" fill="rgba(5,13,15,0.68)" stroke="rgba(57,198,139,0.35)"/>
+                <path d="M62 76h92M62 92h132" stroke="rgba(236,244,239,0.34)" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="196" cy="78" r="16" fill="rgba(57,198,139,0.20)" stroke="#39c68b" stroke-width="3"/>
+                <path d="M188 78l6 6 12-15" stroke="#39c68b" stroke-width="4" fill="none" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div class="sim-overlay">
+              <div class="sim-chip"><b>Decisiones</b><span>Rutas elegidas, pasos omitidos y respuesta a eventos críticos.</span></div>
+              <div class="sim-chip"><b>Protocolos</b><span>Checklists, orden correcto, uso de EPP y permisos de trabajo.</span></div>
+              <div class="sim-chip"><b>Evidencia</b><span>Resultado medible que se integra al pasaporte laboral.</span></div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>La VR no es el producto final. Es una fuente poderosa de evidencia.</span>
+          <span>07 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Evaluación de competencias" style="--slide-bg: linear-gradient(135deg, #071013 0%, #142019 52%, #201916 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag copper">Evaluación</span>
+        </header>
+        <div class="content grid-2">
+          <div class="stack">
+            <h2>Medir desempeño, no solo asistencia.</h2>
+            <p class="lead">
+              Cada curso, prueba o simulación produce una lectura sobre competencias técnicas, seguridad, criterio operativo y cumplimiento de protocolos.
+            </p>
+            <div class="competency-flow">
+              <article class="flow-step card">
+                <div class="step-number">A</div>
+                <h3>Conocimiento</h3>
+                <p>Comprensión técnica, normativa y procedimental.</p>
+              </article>
+              <article class="flow-step card">
+                <div class="step-number">B</div>
+                <h3>Decisión</h3>
+                <p>Capacidad de actuar ante escenarios ambiguos o críticos.</p>
+              </article>
+              <article class="flow-step card">
+                <div class="step-number">C</div>
+                <h3>Protocolo</h3>
+                <p>Orden correcto, trazabilidad, EPP y permisos.</p>
+              </article>
+              <article class="flow-step card">
+                <div class="step-number">D</div>
+                <h3>Consistencia</h3>
+                <p>Resultados repetibles por rol, faena, empresa o cohorte.</p>
+              </article>
+            </div>
+          </div>
+          <div class="card card-pad">
+            <div class="dash-header" style="margin-bottom: 18px;">
+              <div>
+                <div class="dash-title">Scorecard de competencia</div>
+                <p class="caption">Ejemplo conceptual para operador de equipos móviles</p>
+              </div>
+              <span class="verified">Verificable</span>
+            </div>
+            <div class="rubric">
+              <div class="rubric-row">
+                <b>Identificación de riesgo</b>
+                <div class="rubric-track"><span style="--w: 92%;"></span></div>
+                <div class="rubric-score">92</div>
+              </div>
+              <div class="rubric-row">
+                <b>Uso de EPP</b>
+                <div class="rubric-track"><span style="--w: 88%;"></span></div>
+                <div class="rubric-score">88</div>
+              </div>
+              <div class="rubric-row">
+                <b>Secuencia operacional</b>
+                <div class="rubric-track"><span style="--w: 76%;"></span></div>
+                <div class="rubric-score">76</div>
+              </div>
+              <div class="rubric-row">
+                <b>Respuesta a emergencia</b>
+                <div class="rubric-track"><span style="--w: 83%;"></span></div>
+                <div class="rubric-score">83</div>
+              </div>
+              <div class="rubric-row">
+                <b>Comunicación y reporte</b>
+                <div class="rubric-track"><span style="--w: 79%;"></span></div>
+                <div class="rubric-score">79</div>
+              </div>
+              <div class="rubric-row">
+                <b>Cumplimiento documental</b>
+                <div class="rubric-track"><span style="--w: 86%;"></span></div>
+                <div class="rubric-score">86</div>
+              </div>
+            </div>
+            <div class="grid-3" style="margin-top: 18px;">
+              <div class="metric card">
+                <strong>85</strong>
+                <span>Score compuesto por evidencia de desempeño.</span>
+              </div>
+              <div class="metric card">
+                <strong>6</strong>
+                <span>Competencias críticas evaluadas.</span>
+              </div>
+              <div class="metric card">
+                <strong>2</strong>
+                <span>Brechas recomendadas para recertificación.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>La métrica crea confianza, comparabilidad y mejora continua.</span>
+          <span>08 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Pasaporte laboral digital" style="--slide-bg: linear-gradient(135deg, #071013 0%, #0e2420 48%, #0d1b26 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag">Pasaporte laboral</span>
+        </header>
+        <div class="content grid-2">
+          <div class="stack">
+            <h2>Un perfil profesional que funciona como señal portable de confianza.</h2>
+            <p class="lead">
+              Cada trabajador reúne formación, experiencia, certificaciones y evidencia de competencia en un pasaporte digital verificable.
+            </p>
+            <div class="grid-2">
+              <div class="metric card">
+                <strong>Perfil</strong>
+                <span>Rol, experiencia, disponibilidad, países, sectores y especialidades.</span>
+              </div>
+              <div class="metric card">
+                <strong>Historial</strong>
+                <span>Cursos completados, evaluaciones, recertificaciones y vigencias.</span>
+              </div>
+              <div class="metric card">
+                <strong>Credenciales</strong>
+                <span>Certificados verificables por empresa, institución o autoridad formadora.</span>
+              </div>
+              <div class="metric card">
+                <strong>Competencias</strong>
+                <span>Scores por familia técnica, seguridad, protocolo y comportamiento.</span>
+              </div>
+            </div>
+          </div>
+          <div class="passport card" aria-label="Mockup de pasaporte laboral digital">
+            <div class="passport-left">
+              <div class="profile-block">
+                <div class="profile-avatar">MP</div>
+                <div>
+                  <h3>María Paredes</h3>
+                  <p class="muted">Técnica en mantenimiento eléctrico</p>
+                </div>
+                <div class="pill-row">
+                  <span class="pill">LOTO</span>
+                  <span class="pill">Media tensión</span>
+                  <span class="pill">Altura</span>
+                </div>
+              </div>
+              <div class="tight-stack">
+                <div class="qr" aria-label="Código verificable ilustrativo">
+                  <span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span>
+                  <span style="--o:.25"></span><span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span><span style="--o:.25"></span>
+                  <span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span><span style="--o:1"></span><span style="--o:.25"></span>
+                  <span style="--o:.25"></span><span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span><span style="--o:1"></span>
+                  <span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span><span style="--o:.25"></span><span style="--o:1"></span>
+                </div>
+                <p class="caption">Verificación por QR o enlace seguro para empresas e instituciones.</p>
+              </div>
+            </div>
+            <div class="passport-right">
+              <div class="dash-header">
+                <div class="dash-title">Credenciales activas</div>
+                <span class="caption">Actualizado hoy</span>
+              </div>
+              <div class="badge-row">
+                <div class="badge-medal" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 4h8l3 6-7 6-7-6 3-6ZM16 16v12M10 28h12M12 20l-4 4M20 20l4 4"/></svg></div>
+                <div><h3>Bloqueo y etiquetado LOTO</h3><p>Evaluación web + caso práctico. Vigencia sugerida: 12 meses.</p></div>
+                <span class="verified">Aprobada</span>
+              </div>
+              <div class="badge-row">
+                <div class="badge-medal" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4l10 18H6L16 4ZM16 11v5M16 21h.01M8 28h16"/></svg></div>
+                <div><h3>Trabajo seguro en altura</h3><p>Competencias de EPP, permisos, anclaje y respuesta.</p></div>
+                <span class="verified">Aprobada</span>
+              </div>
+              <div class="badge-row">
+                <div class="badge-medal" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 24h20M8 24V12l8-6 8 6v12M12 24v-7h8v7M12 12h8"/></svg></div>
+                <div><h3>Inducción para faena minera</h3><p>Protocolos HSE, tránsito, comunicación y reporte de incidentes.</p></div>
+                <span class="verified">Aprobada</span>
+              </div>
+              <div class="badge-row">
+                <div class="badge-medal" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 26V6h20v20H6ZM10 20l4-4 3 3 5-8M10 11h5"/></svg></div>
+                <div><h3>Matriz de competencias</h3><p>Score compuesto por familia técnica y nivel de criticidad.</p></div>
+                <span class="verified">85/100</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>El trabajador gana portabilidad. La empresa gana verificación.</span>
+          <span>09 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Marketplace de talento" style="--slide-bg: linear-gradient(135deg, #071013 0%, #111d28 47%, #10231d 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag blue">Fase 3 | Marketplace</span>
+        </header>
+        <div class="content marketplace">
+          <div class="stack">
+            <h2>La contratación empieza desde la evidencia, no desde la intuición.</h2>
+            <p class="lead">
+              Las empresas pueden buscar trabajadores por competencias, certificaciones, experiencia, ubicación y resultados de evaluación.
+            </p>
+            <div class="filter-panel card">
+              <div class="dash-title">Búsqueda corporativa</div>
+              <div class="filter-group">
+                <span class="filter-label">Rol</span>
+                <div class="filter-input">Supervisor HSE / Operador / Técnico</div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">Competencias críticas</span>
+                <div class="pill-row">
+                  <span class="pill">LOTO</span>
+                  <span class="pill">Altura</span>
+                  <span class="pill">Mina</span>
+                  <span class="pill">Well control</span>
+                </div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">Certificaciones</span>
+                <div class="filter-input">Vigentes, verificadas, emitidas por institución aliada</div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">Ubicación</span>
+                <div class="filter-input">Argentina, Chile, Perú, Colombia, México</div>
+              </div>
+            </div>
+          </div>
+          <div class="card card-pad">
+            <div class="dash-header" style="margin-bottom: 15px;">
+              <div>
+                <div class="dash-title">Candidatos rankeados por match</div>
+                <p class="caption">Ejemplo conceptual basado en competencias y certificaciones</p>
+              </div>
+              <span class="verified">IA futura</span>
+            </div>
+            <div class="candidate-grid">
+              <article class="candidate-card">
+                <div class="candidate-avatar">AG</div>
+                <div>
+                  <h3>Andrés Gómez</h3>
+                  <p>Operador de camión minero. HSE, tránsito interno, fatiga, comunicación radial.</p>
+                  <div class="pill-row" style="margin-top: 8px;"><span class="pill">Mina</span><span class="pill">EPP</span><span class="pill">Emergencia</span></div>
+                </div>
+                <div class="match-score">94%</div>
+              </article>
+              <article class="candidate-card">
+                <div class="candidate-avatar">MR</div>
+                <div>
+                  <h3>María Rojas</h3>
+                  <p>Técnica eléctrica. LOTO, media tensión, subestaciones y permisos de trabajo.</p>
+                  <div class="pill-row" style="margin-top: 8px;"><span class="pill">LOTO</span><span class="pill">Energía</span><span class="pill">Altura</span></div>
+                </div>
+                <div class="match-score">91%</div>
+              </article>
+              <article class="candidate-card">
+                <div class="candidate-avatar">JP</div>
+                <div>
+                  <h3>Julián Pereira</h3>
+                  <p>Supervisor de pozo. Control de presión, emergencia, liderazgo y documentación.</p>
+                  <div class="pill-row" style="margin-top: 8px;"><span class="pill">Oil & Gas</span><span class="pill">Pozo</span><span class="pill">HSE</span></div>
+                </div>
+                <div class="match-score">88%</div>
+              </article>
+              <article class="candidate-card">
+                <div class="candidate-avatar">LV</div>
+                <div>
+                  <h3>Lucía Vargas</h3>
+                  <p>Soldadora calificada. Espacios confinados, trabajo en caliente y control de atmósferas.</p>
+                  <div class="pill-row" style="margin-top: 8px;"><span class="pill">Soldadura</span><span class="pill">Permisos</span><span class="pill">Gas</span></div>
+                </div>
+                <div class="match-score">86%</div>
+              </article>
+            </div>
+            <div class="grid-3" style="margin-top: 16px;">
+              <div class="metric card"><strong>Menos fricción</strong><span>Shortlists por evidencia validada.</span></div>
+              <div class="metric card"><strong>Más seguridad</strong><span>Filtros por competencias críticas.</span></div>
+              <div class="metric card"><strong>Más escala</strong><span>Talento regional disponible para proyectos.</span></div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>El marketplace monetiza la confianza acumulada por la plataforma.</span>
+          <span>10 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Modelo y roadmap" style="--slide-bg: linear-gradient(135deg, #071013 0%, #171f17 47%, #121e29 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag copper">Modelo y roadmap</span>
+        </header>
+        <div class="content stack">
+          <div class="grid-2">
+            <div>
+              <h2>Un negocio SaaS con expansión por datos, credenciales y red de talento.</h2>
+            </div>
+            <p class="lead">
+              El producto inicia con academia y pasaporte; luego incorpora simulaciones inmersivas y, finalmente, IA para análisis de competencias y matching automático.
+            </p>
+          </div>
+          <div class="roadmap">
+            <article class="phase-card card" style="--phase: #39c68b;">
+              <small>Fase 1 | MVP base</small>
+              <h3>Web, cursos y certificaciones</h3>
+              <ul>
+                <li>Plataforma web para academia digital.</li>
+                <li>Rutas formativas por rol y sector.</li>
+                <li>Perfil profesional y pasaporte laboral.</li>
+                <li>Credenciales verificables para empresas.</li>
+              </ul>
+              <span class="verified">Primera salida al mercado</span>
+            </article>
+            <article class="phase-card card" style="--phase: #56a8f2;">
+              <small>Fase 2 | Inmersiva</small>
+              <h3>Web 3D y VR evaluativa</h3>
+              <ul>
+                <li>Escenarios de minería, oil & gas y energía.</li>
+                <li>Evaluación de toma de decisiones.</li>
+                <li>Protocolos críticos y respuesta a emergencias.</li>
+                <li>Datos de desempeño integrados al pasaporte.</li>
+              </ul>
+              <span class="verified">Diferenciación experiencial</span>
+            </article>
+            <article class="phase-card card" style="--phase: #c9783f;">
+              <small>Fase 3 | Red e IA</small>
+              <h3>Matching y analítica sectorial</h3>
+              <ul>
+                <li>Marketplace de talento validado.</li>
+                <li>Matching automático empresa-candidato.</li>
+                <li>Mapa de brechas por región, rol y proyecto.</li>
+                <li>Motor de empleabilidad y recertificación.</li>
+              </ul>
+              <span class="verified">Moat de datos</span>
+            </article>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-item"><b>Suscripción corporativa</b><span>Licencias para empresas, contratistas y áreas HSE/RRHH.</span></div>
+            <div class="revenue-item"><b>Certificaciones pagas</b><span>Credenciales por usuario, rol, vigencia o institución emisora.</span></div>
+            <div class="revenue-item"><b>Marketplace</b><span>Acceso a búsqueda, shortlist y reclutamiento especializado.</span></div>
+            <div class="revenue-item"><b>Simulaciones custom</b><span>Escenarios adaptados a faenas, plantas, pozos o procedimientos.</span></div>
+            <div class="revenue-item"><b>Licenciamiento</b><span>Universidades, centros técnicos, cámaras y programas públicos.</span></div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>Ingresos recurrentes + certificaciones + red de talento + simulación especializada.</span>
+          <span>11 / 12</span>
+        </footer>
+      </section>
+
+      <section class="slide" data-title="Propuesta para socios" style="--slide-bg: linear-gradient(135deg, #071013 0%, #10231e 46%, #0e202a 100%);">
+        <div class="industrial-texture"></div>
+        <header class="topbar">
+          <div class="brand-lockup"><span class="brand-mark" aria-hidden="true"></span>MinePass LATAM</div>
+          <span class="section-tag">Alianza corporativa</span>
+        </header>
+        <div class="content partner-layout">
+          <div class="partner-card card">
+            <div class="closing-lockup">
+              <h2>Proponer un piloto corporativo de 90 días.</h2>
+              <p class="lead">
+                No se trata de adoptar toda la plataforma desde el día uno. Se trata de validar MinePass con roles reales, una cohorte controlada y evidencia medible.
+              </p>
+            </div>
+            <div class="pilot-summary">
+              <div class="pilot-kpi">
+                <strong>2-3</strong>
+                <span>Roles críticos para minería, petróleo, gas o energía.</span>
+              </div>
+              <div class="pilot-kpi">
+                <strong>1</strong>
+                <span>Cohorte piloto de trabajadores o contratistas.</span>
+              </div>
+              <div class="pilot-kpi">
+                <strong>90</strong>
+                <span>Días para validar rutas, evaluación y pasaporte.</span>
+              </div>
+            </div>
+            <div class="commitment-grid">
+              <div class="commitment-card">
+                <b>El socio aporta</b>
+                <p>Roles críticos, expertos técnicos, procedimientos, cohorte piloto y feedback operativo.</p>
+              </div>
+              <div class="commitment-card">
+                <b>MinePass entrega</b>
+                <p>Rutas formativas, matriz de competencias, evaluación, pasaportes y reporte ejecutivo.</p>
+              </div>
+            </div>
+          </div>
+          <div class="partner-card card">
+            <h3>Plan 30 / 60 / 90</h3>
+            <div class="pilot-timeline">
+              <div class="pilot-step">
+                <time>Día 1-30</time>
+                <div><b>Diseñar el estándar mínimo</b><span>Definir roles, competencias críticas, criterios de aprobación y evidencias requeridas.</span></div>
+              </div>
+              <div class="pilot-step">
+                <time>Día 31-60</time>
+                <div><b>Construir y ejecutar el piloto</b><span>Cargar contenidos, aplicar evaluaciones y emitir los primeros pasaportes laborales.</span></div>
+              </div>
+              <div class="pilot-step">
+                <time>Día 61-90</time>
+                <div><b>Medir y decidir expansión</b><span>Entregar reporte de brechas, empleabilidad, adopción y roadmap hacia VR o marketplace.</span></div>
+              </div>
+            </div>
+            <div class="value-callout">
+              Resultado esperado: un caso de negocio concreto para escalar MinePass como infraestructura de certificación y talento en LATAM.
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>MinePass LATAM | Capacitación verificable para el futuro energético y minero de la región</span>
+          <span>12 / 12</span>
+        </footer>
+      </section>
+    </div>
+
+    <nav class="controls" aria-label="Controles de presentación">
+      <button class="control-button" id="prevBtn" type="button" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="counter" id="counter" aria-live="polite">1 / 12</div>
+      <button class="control-button" id="nextBtn" type="button" aria-label="Slide siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <button class="control-button" id="fullscreenBtn" type="button" aria-label="Ver en pantalla completa" title="Pantalla completa">
+        <svg class="icon-fullscreen" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5M3 3l6 6M21 3l-6 6M21 21l-6-6M3 21l6-6"/>
+        </svg>
+        <svg class="icon-exit-fullscreen" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 3v6H3M15 3v6h6M15 21v-6h6M9 21v-6H3M9 9 3 3M15 9l6-6M15 15l6 6M9 15l-6 6"/>
+        </svg>
+      </button>
+    </nav>
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  </main>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const fullscreenBtn = document.getElementById("fullscreenBtn");
+      const counter = document.getElementById("counter");
+      const progressBar = document.getElementById("progressBar");
+      const total = slides.length;
+      let index = 0;
+
+      function fitDeck() {
+        const root = document.documentElement;
+        if (window.matchMedia("(max-width: 760px)").matches) {
+          root.style.setProperty("--deck-scale", "1");
+          return;
+        }
+
+        const padding = 36;
+        const scale = Math.min(
+          (window.innerWidth - padding) / 1600,
+          (window.innerHeight - padding) / 900
+        );
+        root.style.setProperty("--deck-scale", String(Math.max(0.1, scale)));
+      }
+
+      function updateHash() {
+        const nextHash = `slide-${index + 1}`;
+        if (window.location.hash.slice(1) !== nextHash) {
+          history.replaceState(null, "", `#${nextHash}`);
+        }
+      }
+
+      function showSlide(nextIndex) {
+        index = Math.max(0, Math.min(total - 1, nextIndex));
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("active", slideIndex === index);
+          slide.setAttribute("aria-hidden", slideIndex === index ? "false" : "true");
+        });
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === total - 1;
+        counter.textContent = `${index + 1} / ${total}`;
+        progressBar.style.width = `${((index + 1) / total) * 100}%`;
+        document.title = `MinePass LATAM | ${slides[index].dataset.title}`;
+        updateHash();
+      }
+
+      function fromHash() {
+        const match = window.location.hash.match(/slide-(\d+)/);
+        if (!match) return 0;
+        const parsed = Number(match[1]);
+        if (!Number.isFinite(parsed)) return 0;
+        return parsed - 1;
+      }
+
+      function updateFullscreenButton() {
+        const isFullscreen = Boolean(document.fullscreenElement);
+        fullscreenBtn.classList.toggle("is-fullscreen", isFullscreen);
+        fullscreenBtn.setAttribute(
+          "aria-label",
+          isFullscreen ? "Salir de pantalla completa" : "Ver en pantalla completa"
+        );
+        fullscreenBtn.title = isFullscreen ? "Salir de pantalla completa" : "Pantalla completa";
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          } else {
+            await document.documentElement.requestFullscreen();
+          }
+        } catch {
+          fullscreenBtn.animate(
+            [
+              { transform: "translateX(0)" },
+              { transform: "translateX(-2px)" },
+              { transform: "translateX(2px)" },
+              { transform: "translateX(0)" },
+            ],
+            { duration: 180, easing: "ease-out" }
+          );
+        }
+      }
+
+      prevBtn.addEventListener("click", () => showSlide(index - 1));
+      nextBtn.addEventListener("click", () => showSlide(index + 1));
+      fullscreenBtn.addEventListener("click", toggleFullscreen);
+      document.addEventListener("fullscreenchange", updateFullscreenButton);
+      window.addEventListener("hashchange", () => showSlide(fromHash()));
+      window.addEventListener("resize", fitDeck);
+      window.addEventListener("keydown", (event) => {
+        const key = event.key;
+        if (key === "ArrowRight" || key === "PageDown" || key === " ") {
+          event.preventDefault();
+          showSlide(index + 1);
+        }
+        if (key === "ArrowLeft" || key === "PageUp" || key === "Backspace") {
+          event.preventDefault();
+          showSlide(index - 1);
+        }
+        if (key === "Home") {
+          event.preventDefault();
+          showSlide(0);
+        }
+        if (key === "End") {
+          event.preventDefault();
+          showSlide(total - 1);
+        }
+      });
+
+      fitDeck();
+      updateFullscreenButton();
+      showSlide(fromHash());
+    })();
+  </script>
+</body>
+</html>
