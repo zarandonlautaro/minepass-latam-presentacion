@@ -36,6 +36,7 @@
     body {
       min-height: 100%;
       margin: 0;
+      color-scheme: dark;
       background:
         radial-gradient(circle at 15% 5%, rgba(201, 120, 63, 0.18), transparent 28%),
         radial-gradient(circle at 80% 20%, rgba(86, 168, 242, 0.16), transparent 30%),
@@ -56,6 +57,8 @@
 
     button {
       color: inherit;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(57, 198, 139, 0.20);
     }
 
     .deck-shell {
@@ -1946,6 +1949,11 @@
       background: rgba(57, 198, 139, 0.12);
     }
 
+    .control-button:focus-visible {
+      outline: 2px solid rgba(57, 198, 139, 0.86);
+      outline-offset: 3px;
+    }
+
     .control-button:disabled {
       opacity: 0.36;
       cursor: not-allowed;
@@ -2087,21 +2095,29 @@
     }
 
     @media (max-width: 760px) {
+      html,
       body {
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
       }
 
       .deck-shell {
-        min-height: 100vh;
+        min-height: 100svh;
         height: auto;
         padding: 0;
+        overflow: visible;
       }
 
       .deck {
         width: 100vw;
-        min-height: 100vh;
+        height: auto;
+        min-height: 100svh;
         aspect-ratio: auto;
+        overflow: visible;
         border-radius: 0;
+        border: 0;
+        box-shadow: none;
+        background: transparent;
         position: relative;
         inset: auto;
         transform: none;
@@ -2110,12 +2126,81 @@
       .slide {
         position: relative;
         display: none;
-        min-height: 100vh;
-        padding: 32px 20px 98px;
+        min-height: 100svh;
+        grid-template-rows: auto auto auto;
+        align-content: start;
+        gap: 24px;
+        padding:
+          max(28px, env(safe-area-inset-top))
+          max(18px, env(safe-area-inset-right))
+          calc(118px + env(safe-area-inset-bottom))
+          max(18px, env(safe-area-inset-left));
+        overflow: visible;
       }
 
       .slide.active {
         display: grid;
+      }
+
+      .content {
+        align-items: start;
+        gap: 24px;
+      }
+
+      .topbar,
+      .footer {
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+
+      .footer {
+        flex-direction: column;
+        line-height: 1.35;
+      }
+
+      .brand-lockup {
+        font-size: 13px;
+        line-height: 1.12;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .eyebrow,
+      .section-tag {
+        max-width: 100%;
+        min-height: 30px;
+        padding: 6px 10px;
+        font-size: 12px;
+        line-height: 1.15;
+      }
+
+      h1 {
+        font-size: 44px;
+        line-height: 0.98;
+        text-wrap: balance;
+      }
+
+      h2,
+      .closing-lockup h2 {
+        font-size: 34px;
+        line-height: 1.04;
+        text-wrap: balance;
+      }
+
+      h3 {
+        text-wrap: balance;
+      }
+
+      .lead {
+        font-size: 18px;
+        line-height: 1.42;
       }
 
       .grid-2,
@@ -2142,19 +2227,284 @@
       .sim-stage,
       .dashboard,
       .filter-panel,
+      .passport,
+      .regional-card,
       .partner-card {
-        min-height: 420px;
+        min-height: auto;
+      }
+
+      .card-pad,
+      .partner-card,
+      .regional-card,
+      .passport-left,
+      .passport-right {
+        padding: 18px;
+      }
+
+      .metric,
+      .pilot-kpi {
+        min-height: auto;
+      }
+
+      .large-metric strong,
+      .metric strong,
+      .pilot-kpi strong {
+        font-size: 30px;
+      }
+
+      .pill {
+        white-space: normal;
+      }
+
+      .hero-visual,
+      .sim-stage {
+        display: grid;
+        gap: 14px;
+        padding: 14px;
+      }
+
+      .hero-visual svg,
+      .sim-stage svg {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 0.86;
+        min-height: 0;
+      }
+
+      .hero-panels,
+      .sim-overlay {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        gap: 10px;
+      }
+
+      .hero-panel,
+      .sim-chip {
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .hero-panel b {
+        font-size: 20px;
+      }
+
+      .thesis-ring {
+        min-height: auto;
+        place-items: stretch;
+        align-items: stretch;
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .orbit-line {
+        display: none;
+      }
+
+      .ring-core,
+      .orbit-card {
+        position: relative;
+        inset: auto;
+        transform: none;
+        width: auto;
+        min-height: auto;
+      }
+
+      .orbit-card.one,
+      .orbit-card.two,
+      .orbit-card.three {
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        transform: none;
+      }
+
+      .ring-core {
+        height: auto;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+      }
+
+      .ring-core strong {
+        font-size: 23px;
+      }
+
+      .gap-visual,
+      .friction-map {
+        min-height: auto;
+        padding: 16px;
+      }
+
+      .signal-chain,
+      .dash-main,
+      .dash-kpis,
+      .pilot-summary,
+      .commitment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .signal-node {
+        min-height: auto;
+      }
+
+      .signal-node::after,
+      .flow-step::after {
+        display: none;
+      }
+
+      .friction-callout,
+      .regional-note {
+        grid-template-columns: 1fr;
+      }
+
+      .region-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .region-row span {
+        justify-self: start;
+      }
+
+      .regional-card::before {
+        display: none;
+      }
+
+      .module-row,
+      .product-step {
+        grid-template-columns: 42px 1fr;
+      }
+
+      .module-row small,
+      .product-step small {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .dashboard {
+        padding: 14px;
+      }
+
+      .bar-chart {
+        height: 180px;
+      }
+
+      .rubric-row {
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+
+      .rubric-track {
+        grid-column: 1 / -1;
+      }
+
+      .passport-left {
+        gap: 28px;
+      }
+
+      .profile-block h3 {
+        font-size: 28px;
+      }
+
+      .badge-row {
+        grid-template-columns: 52px 1fr;
+      }
+
+      .badge-medal,
+      .candidate-avatar,
+      .match-score {
+        width: 52px;
+        height: 52px;
+      }
+
+      .badge-row .verified {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .candidate-card {
+        grid-template-columns: 52px 1fr;
+      }
+
+      .candidate-card .match-score {
+        grid-column: 1 / -1;
+        justify-self: start;
+        font-size: 16px;
+      }
+
+      .phase-card,
+      .course-card {
+        min-height: auto;
+      }
+
+      .revenue-item {
+        min-height: auto;
+      }
+
+      .pilot-step {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .pilot-step time {
+        justify-self: start;
       }
 
       .controls {
-        width: calc(100vw - 24px);
+        width: min(calc(100vw - 24px), 360px);
         justify-content: center;
         left: 50%;
         right: auto;
         top: auto;
-        bottom: 14px;
+        bottom: max(12px, env(safe-area-inset-bottom));
         transform: translateX(-50%);
         flex-direction: row;
+        border-radius: 999px;
+      }
+
+      .control-button {
+        width: 44px;
+        height: 44px;
+      }
+
+      .progress {
+        height: 3px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .slide {
+        padding-left: max(14px, env(safe-area-inset-left));
+        padding-right: max(14px, env(safe-area-inset-right));
+      }
+
+      h1 {
+        font-size: 39px;
+      }
+
+      h2,
+      .closing-lockup h2 {
+        font-size: 30px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
       }
     }
 
